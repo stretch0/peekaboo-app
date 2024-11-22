@@ -1,4 +1,4 @@
-# Peekaboo 🌟
+# Peekaboo 👻
 
 **Peekaboo** is a secure, simple, and reliable way to share your secret keys or environment variables with your team. With a unique link that automatically expires after being viewed, Peekaboo ensures your secrets remain safe and accessible only to the intended recipient.
 
