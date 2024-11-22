@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Peekaboo 🌟
 
-## Getting Started
+**Peekaboo** is a secure, simple, and reliable way to share your secret keys or environment variables with your team. With a unique link that automatically expires after being viewed, Peekaboo ensures your secrets remain safe and accessible only to the intended recipient.
 
-First, run the development server:
+## How It Works 🚀
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Peekaboo uses **RSA-OAEP encryption** to protect your secrets. Here's how the process works:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. **Encrypting Your Secret**:
+   - When you share a secret, Peekaboo generates a unique RSA key pair.
+   - Your secret is encrypted using the public key.
+   - A unique link containing the private key is created for you to share.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. **Viewing the Secret**:
+   - The recipient enters the shared link.
+   - The private key in the link is used (client-side) to decrypt the secret directly in their browser.
+   - Once the secret is viewed, the link expires, and the encrypted secret is deleted from the server.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Security By Design**:
+   - Peekaboo **never stores or receives your private keys**.
+   - Your secrets are stored encrypted on the server.
+   - Decryption happens entirely in the browser, keeping your secrets secure.
 
-## Learn More
+## Why Peekaboo? 🤔
 
-To learn more about Next.js, take a look at the following resources:
+- **Secure**: RSA-OAEP encryption ensures robust protection of your data.
+- **Ephemeral**: Shared secrets are deleted immediately after being viewed.
+- **Confidential**: Peekaboo has no access to your keys or decrypted secrets.
+- **Easy to Use**: A simple interface for sharing secrets confidently.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage ✨
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Sharing a Secret
+1. Visit [Peekaboo.sh](https://peekaboo.sh).
+2. Enter your secret and click **Share**.
+3. Copy the unique link and share it with the intended recipient.
 
-## Deploy on Vercel
+### Viewing a Secret
+1. Open the unique link provided to you.
+2. The secret will be decrypted in your browser and displayed.
+3. The link will automatically expire after viewing.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License 📜
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Peekaboo is open source and available under the [MIT License](LICENSE).
+
+---
+
+**Start sharing your secrets securely today with [Peekaboo.sh](https://peekaboo.sh)!**
