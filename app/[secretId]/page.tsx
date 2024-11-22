@@ -18,10 +18,10 @@ export default async function GetSecret({ params, searchParams }: GetSecretProps
 }
 
 type GetSecretProps = {
-  params: {
+  params: Promise<{
     secretId: string;
-  },
-  searchParams: {
+  }>,
+  searchParams: Promise<{
     privateKey: string;
-  }
+  }>
 }

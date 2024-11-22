@@ -1,10 +1,6 @@
 import { NextRequest } from "next/server"
 import config from "@/config";
-import { z } from "zod"
-
-export const GetSecretSchema = z.object({
-  secret: z.string()
-})
+import { GetSecretSchema } from "@/schemas";
 
 export async function GET(request: NextRequest) {
 

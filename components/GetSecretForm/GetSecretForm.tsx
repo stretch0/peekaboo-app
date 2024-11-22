@@ -1,8 +1,8 @@
 'use client'
 
-import { GetSecretSchema } from "@/app/api/secrets/route"
 import { useCallback, useEffect, useState } from "react";
 import Loader from "../Loader";
+import { GetSecretSchema } from "@/schemas";
 
 export default function GetSecretForm({
   secretId,

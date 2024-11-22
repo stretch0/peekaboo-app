@@ -7,3 +7,7 @@ export const AddSecretFormSchema = z.object({
 export const AddSecretResponseSchema = z.object({
   id: z.string(),
 })
+
+export const GetSecretSchema = z.object({
+  secret: z.string()
+})
