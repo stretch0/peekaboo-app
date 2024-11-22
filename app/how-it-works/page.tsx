@@ -19,6 +19,10 @@ export default function HowItWorksPage() {
         Peekaboo stores only your encrypted secret. You keep the keys, and Peekaboo never receives them. Share your secrets confidently with Peekaboo!
       </p>
 
+      <p>
+        Peekaboo is open source and free to use. You can view the source code on <a href="https://github.com/stretch0/peekaboo-app" className="text-blue-500 dark:text-blue-400 hover:underline">GitHub</a> and contribute to the project.
+      </p>
+
       <div>
         <Link href="/" className="px-8 py-4 text-lg font-semibold text-white bg-black rounded-lg dark:text-black dark:bg-white dark:hover:bg-gray-100 dark:hover:text-black hover:bg-gray-100 hover:text-black focus:outline-none justify-center items-center flex gap-4 max-w-md mx-auto">
           Get Started
