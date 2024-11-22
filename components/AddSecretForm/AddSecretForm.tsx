@@ -141,7 +141,7 @@ export default function AddSecretForm({
               id='secret-input'
               name='secret-input'
               className="w-full h-52 max-w-2xl p-4 text-lg bg-gray-100 rounded-lg text-black focus:outline-none dark:bg-gray-800 dark:text-white"
-              placeholder="Enter your secret keys or .env files..."
+              placeholder="Enter your secret values or .env files..."
             />
             <button
               type="submit"
