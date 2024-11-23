@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Link from "next/link";
-import PreferredColorSchemeToggle from "@/components/PreferredColorSchemeToggle";
+// import PreferredColorSchemeToggle from "@/components/PreferredColorSchemeToggle";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -55,7 +55,7 @@ export default function RootLayout({
             >
 
               {/* <PreferredColorSchemeToggle /> */}
-
+              
               <Link 
                 href='https://github.com/stretch0/peekaboo-app'
                 target="_blank"

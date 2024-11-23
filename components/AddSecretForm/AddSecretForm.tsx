@@ -145,7 +145,7 @@ export default function AddSecretForm({
             />
             <button
               type="submit"
-              className="px-4 py-2 text-md font-semibold text-white bg-black rounded-lg dark:text-black dark:bg-white dark:hover:bg-gray-100 dark:hover:text-black hover:bg-gray-100 hover:text-black focus:outline-none justify-center items-center flex gap-4 max-w-md mx-auto"
+              className="px-4 py-2 text-md font-semibold text-white rounded-lg dark:text-black dark:hover:bg-gray-100 dark:hover:text-black hover:bg-gray-100 hover:text-black focus:outline-none justify-center items-center flex gap-4 max-w-md mx-auto border-black border-black"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
