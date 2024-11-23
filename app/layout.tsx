@@ -32,7 +32,9 @@ export default function RootLayout({
         <nav className="fixed top-0 left-0 right-0 z-10 p-4">
           <div className="flex items-center justify-between mx-auto">
             <Link href="/" className="text-xl font-bold flex justify-center items-center gap-2">
-            <svg height="24px" width="24px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xmlSpace="preserve" className="fill-current">
+              <svg 
+              className="ease-in-out fill-current hover:animate-bounce"
+              height="24px" width="24px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xmlSpace="preserve">
                 
                 <g id="SVGRepo_iconCarrier"> 
                 
