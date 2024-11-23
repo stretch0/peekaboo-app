@@ -64,6 +64,7 @@ export default function RootLayout({
 
               </Link>
               
+              
               <Link 
                 href='/how-it-works'
                 className="hover:text-yellow-300 dark:hover:text-yellow-300"
