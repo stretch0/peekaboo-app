@@ -109,7 +109,7 @@ export default function GetSecretForm({
                 <Loader />
               ) : (
                 <button
-                  className="px-4 py-2 text-sm font-semibold dark:text-black bg-black dark:bg-white rounded-lg flex items-center gap-2"
+                  className="px-4 py-2 text-sm font-semibold dark:text-black bg-black dark:bg-white rounded-lg flex items-center gap-2 text-white hover:bg-gray-800 hover:shadow-lg focus:outline-none dark:hover:bg-gray-300"
                   onClick={handleGetSecret}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8">
@@ -127,7 +127,7 @@ export default function GetSecretForm({
       {
         !!secret && (
           <button
-            className="absolute top-4 right-4 p-2 text-lg font-semibold dark:text-black bg-gray-900 dark:bg-gray-300 rounded-lg"
+            className="absolute top-4 right-4 p-2 text-lg font-semibold dark:text-black bg-gray-900 dark:bg-gray-300 rounded-lg text-white hover:bg-gray-600 dark:hover:bg-gray-100 dark:hover:border-indigo-400 dark:hover:border-2 dark:border-gray-300 dark:border-2"
             onClick={handleCopySecret}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
