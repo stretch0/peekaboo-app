@@ -54,7 +54,7 @@ export default function GetSecretForm({
       url.searchParams.set('id', secretId)
       
       const response = await fetch(url.toString())
-
+      
       if( !response.ok ) {
         throw new Error('Failed to fetch secret')
       }
@@ -63,10 +63,22 @@ export default function GetSecretForm({
 
       const { secret } = GetSecretSchema.parse(data)
 
-      const decryptedSecret = await decryptSecret(secret, privateKey)
+      if( typeof secret === 'string' ) {
+        const decryptedSecret = await decryptSecret(secret, privateKey)
+  
+        setSecret(decryptedSecret)
+        setLoading(false)
+      }
 
-      setSecret(decryptedSecret)
-      setLoading(false)
+      if( Array.isArray(secret) ) {
+        const decryptedSecret = await Promise.all(secret.map(async (chunk) => {
+          return decryptSecret(chunk, privateKey)
+        }))
+  
+        setSecret(decryptedSecret.join(''))
+        setLoading(false)
+      }
+
     } catch(error) {
       console.error('Failed to fetch secret', error)
       setToast({
@@ -139,7 +151,7 @@ export default function GetSecretForm({
       
       <code 
         id='secret-input'
-        className="w-full h-52 max-w-2xl p-4 text-lg bg-gray-100 rounded-lg text-black focus:outline-none dark:bg-gray-800 dark:text-white break-words pr-16"
+        className="w-full h-52 max-w-2xl p-4 text-lg bg-gray-100 rounded-lg text-black focus:outline-none dark:bg-gray-800 dark:text-white break-words pr-16 overflow-scroll"
         contentEditable={false}
       >
         {secret || '*********'}

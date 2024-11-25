@@ -1,16 +1,16 @@
 import AddSecretForm from "@/components/AddSecretForm";
-import { AddSecretFormSchema, AddSecretResponseSchema } from "@/schemas";
+import { AddSecretResponseSchema, SubmitSecretSchema } from "@/schemas";
 import config from "@/config";
 
 export default function Home() {
   
   async function onSubmit(input: {
-    encryptedSecret: string;
+    encryptedSecret: string[];
     publicKey: string;
   }) {
     'use server'
     
-    const { encryptedSecret } = AddSecretFormSchema.parse(input)
+    const { encryptedSecret } = SubmitSecretSchema.parse(input)
     
     const url = new URL('/secrets', config?.API_URL)
     

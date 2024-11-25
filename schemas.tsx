@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const AddSecretFormSchema = z.object({
-  encryptedSecret: z.string().min(1).max(1000),
+  encryptedSecret: z.string().min(1)
 })
 
 export const AddSecretResponseSchema = z.object({
@@ -9,5 +9,9 @@ export const AddSecretResponseSchema = z.object({
 })
 
 export const GetSecretSchema = z.object({
-  secret: z.string()
+  secret: z.string().or(z.array(z.string()))
+})
+
+export const SubmitSecretSchema = z.object({
+  encryptedSecret: z.array(z.string())
 })
