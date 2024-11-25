@@ -2,6 +2,14 @@
 import { AddSecretFormSchema } from "@/schemas";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 
+const splitStringIntoChunks = (str: string, chunkSize: number): string[] => {
+  const chunks = [];
+  for (let i = 0; i < str.length; i += chunkSize) {
+    chunks.push(str.slice(i, i + chunkSize));
+  }
+  return chunks;
+};
+
 export default function AddSecretForm({
   onSubmit
 }: AddSecretFormProps) {
@@ -40,56 +48,73 @@ export default function AddSecretForm({
   }, [])
   
   const handleSubmit = useCallback(async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    
-    const formData = new FormData(event.currentTarget);
+    try {
 
-    const {
-      data,
-      error,
-      success
-    } = AddSecretFormSchema.safeParse({ encryptedSecret: formData.get('secret-input') })
-    
-    if(!success) {
+      event.preventDefault()
+      
+      const formData = new FormData(event.currentTarget);
+  
+      const {
+        data,
+        error,
+        success
+      } = AddSecretFormSchema.safeParse({ encryptedSecret: formData.get('secret-input') })
+      
+      if(!success) {
+        setToast({
+          message: error.errors[0].message,
+          type: 'error'
+        })
+        return
+      }
+  
+      const keyPair = await generateKeyPair();
+  
+      const publicKeyBuffer = new Uint8Array([...keyPair.publicKey].map(char => char.charCodeAt(0))).buffer;
+  
+      const publicKey = await window.crypto.subtle.importKey(
+        "spki",
+        publicKeyBuffer,
+        {
+          name: "RSA-OAEP",
+          hash: "SHA-256",
+        },
+        true,
+        ["encrypt"]
+      );
+  
+      const chunks = splitStringIntoChunks(data.encryptedSecret, 190);
+
+      const encryptedChunks = await Promise.all(chunks.map(async (chunk) => {
+        const valueToEncrypt = new TextEncoder().encode(chunk);
+        const encryptedSecret = await window.crypto.subtle.encrypt(
+          {
+            name: "RSA-OAEP"
+          },
+          publicKey,
+          valueToEncrypt
+        );
+
+        return String.fromCharCode(...new Uint8Array(encryptedSecret))
+      }))
+      
+      const id = await onSubmit({
+        encryptedSecret: encryptedChunks,
+        publicKey: keyPair.publicKey,
+      })
+  
+      const url = new URL(id, window.location.href);
+      url.searchParams.set("privateKey", keyPair.privateKey);
+      
+      setShareUrl(url.toString());
+
+    } catch (error) {
+      console.error('Failed to submit', error)
       setToast({
-        message: error.errors[0].message,
+        message: 'Failed to share secret',
         type: 'error'
       })
-      return
     }
-
-    const keyPair = await generateKeyPair();
-
-    const publicKeyBuffer = new Uint8Array([...keyPair.publicKey].map(char => char.charCodeAt(0))).buffer;
-
-    const publicKey = await window.crypto.subtle.importKey(
-      "spki",
-      publicKeyBuffer,
-      {
-        name: "RSA-OAEP",
-        hash: "SHA-256",
-      },
-      true,
-      ["encrypt"]
-    );
-
-    const encryptedSecret = await window.crypto.subtle.encrypt(
-      {
-        name: "RSA-OAEP"
-      },
-      publicKey,
-      new TextEncoder().encode(data.encryptedSecret)
-    );
-
-    const id = await onSubmit({
-      encryptedSecret: String.fromCharCode(...new Uint8Array(encryptedSecret)),
-      publicKey: keyPair.publicKey,
-    })
-
-    const url = new URL(id, window.location.href);
-    url.searchParams.set("privateKey", keyPair.privateKey);
-    
-    setShareUrl(url.toString());
   }, [onSubmit, generateKeyPair])
 
   const handleCopy = useCallback(async (shareUrl: string) => {
@@ -177,7 +202,7 @@ export default function AddSecretForm({
 
 type AddSecretFormProps = {
   onSubmit: (args: {
-    encryptedSecret: string;
+    encryptedSecret: string[];
     publicKey: string;
   }) => Promise<string>;
 }
