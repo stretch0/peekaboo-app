@@ -14,6 +14,7 @@ export default function AddSecretForm({
   onSubmit
 }: AddSecretFormProps) {
 
+  const [loading, setLoading] = useState(false);
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [toast, setToast] = useState<{
     message: string;
@@ -50,6 +51,8 @@ export default function AddSecretForm({
   const handleSubmit = useCallback(async (event: FormEvent<HTMLFormElement>) => {
     try {
 
+      setLoading(true)
+
       event.preventDefault()
       
       const formData = new FormData(event.currentTarget);
@@ -65,6 +68,7 @@ export default function AddSecretForm({
           message: error.errors[0].message,
           type: 'error'
         })
+        setLoading(false)
         return
       }
   
@@ -107,6 +111,7 @@ export default function AddSecretForm({
       url.searchParams.set("privateKey", keyPair.privateKey);
       
       setShareUrl(url.toString());
+      setLoading(false)
 
     } catch (error) {
       console.error('Failed to submit', error)
@@ -114,6 +119,7 @@ export default function AddSecretForm({
         message: 'Failed to share secret',
         type: 'error'
       })
+      setLoading(false)
     }
   }, [onSubmit, generateKeyPair])
 
@@ -171,11 +177,20 @@ export default function AddSecretForm({
             <button
               type="submit"
               className="p-4 text-lg font-semibold text-black bg-white border-gray-900 border-2 rounded-lg hover:border-indigo-400 dark:border-gray-600 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-700 dark:hover:text-white hover:bg-gray-100 hover:text-black focus:outline-none flex justify-center items-center gap-2"
+              disabled={loading}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
-              </svg>
-              Share 
+              {
+                loading ? (
+                  <>Generating share link</>
+                ) : (
+                  <>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
+                    </svg>
+                    Share 
+                  </>
+                )
+              }
             </button>
           </form>
         )
